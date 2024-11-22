@@ -16,14 +16,15 @@ namespace LoanManagementSystem.Main
 			do
 			{
 				ILoanService loanService = new LoanService();
-				Console.Write("Main menu:\n" +
+				Console.Write("\nMain menu:\n" +
 					"\t1.Get all loans\n" +
 					"\t2.Get loan by ID\n" +
 					"\t3.Apply new loan\n" +
 					"\t4.Register new customer\n" +
-					"\t5.Calculate Interest\n" +
+					"\t5.Calculate EMI\n" +
 					"\t6.Get loan status\n" +
-					"\t7.Exit\n" +
+					"\t7.Calculate interest\n" +
+					"\t8.Exit\n" +
 					"Enter your choice: ");
 				userChoice = int.Parse(Console.ReadLine());
 				switch (userChoice)
@@ -45,7 +46,7 @@ namespace LoanManagementSystem.Main
 						break;
 
 					case 5:
-						loanService.CalcInterest();
+						loanService.CalcEMI();
 						break;
 
 					case 6:
@@ -53,6 +54,10 @@ namespace LoanManagementSystem.Main
 						break;
 
 					case 7:
+						loanService.CalcInterest();
+						break;
+
+					case 8:
 						Console.WriteLine("Exiting the application...");
 						break;
 
@@ -60,7 +65,7 @@ namespace LoanManagementSystem.Main
 						Console.WriteLine("Invalid choice!!");
 						break;
 				}
-			} while (userChoice != 7);
+			} while (userChoice != 8);
 		}
 	}
 }

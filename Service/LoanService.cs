@@ -159,15 +159,29 @@ namespace LoanManagementSystem.Service
 			}
 		}
 
+		public void CalcEMI()
+		{
+			try
+			{
+				Console.Write("\nEnter Loan ID: ");
+				int loanId = int.Parse(Console.ReadLine());
+				Console.WriteLine("The EMI is: " + _loanRepository.CalcEMI(loanId));
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+
 		public void CalcInterest()
 		{
 			try
 			{
 				Console.Write("\nEnter Loan ID: ");
 				int loanId = int.Parse(Console.ReadLine());
-				Console.WriteLine("The Interest is: " + _loanRepository.CalcInterest(loanId));
+				Console.WriteLine("The interest is: " + _loanRepository.CalcInterest(loanId));
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
 			}

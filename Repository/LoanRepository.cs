@@ -47,12 +47,40 @@ namespace LoanManagementSystem.Repository
 
 		}
 
-		public double CalcEMI(int loanId)
+		
+		public double CalcInterest(int loanId)
 		{
-			throw new NotImplementedException();
+			using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+			using (SqlCommand cmd = new SqlCommand("SELECT * FROM Loans WHERE LoanID = @LoanID", sqlConnection))
+			{
+				cmd.Parameters.AddWithValue("@LoanID", loanId);
+				sqlConnection.Open();
+
+				using (SqlDataReader reader = cmd.ExecuteReader())
+				{
+					if (reader.Read())
+					{
+						double principalAmt = Convert.ToDouble(reader["PrincipalAmount"]);
+						double rate = Convert.ToDouble(reader["InterestRate"]);
+						double tenure = Convert.ToDouble(reader["LoanTerm"]);
+
+						return CalculateInterest(principalAmt, rate, tenure);
+					}
+					else
+					{
+						throw new InvalidLoanException($"Loan with ID {loanId} not found.");
+					}
+				}
+			}
 		}
 
-		public double CalcInterest(int loanId)
+		public double CalculateInterest(double principalAmount, double interestRate, double loanTenure)
+		{
+			double interest = (principalAmount * interestRate * loanTenure) / 12;
+			return interest;
+		}
+
+		public double CalcEMI(int loanId)
 		{
 			double emi = 0.0;
 			try

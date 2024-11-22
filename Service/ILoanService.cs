@@ -12,6 +12,7 @@ namespace LoanManagementSystem.Service
 		void GetLoanById();
 		void ApplyNewLoan();
 		void AddNewCustomer();
+		void CalcEMI();
 		void CalcInterest();
 		void GetLoanStatus();
 
